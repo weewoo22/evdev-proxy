@@ -1,10 +1,7 @@
-pub const libinput = @cImport({
+pub usingnamespace @cImport({
     @cInclude("libinput.h");
-});
-pub const libevdev = @cImport({
     @cInclude("libevdev/libevdev.h");
     @cInclude("libevdev/libevdev-uinput.h");
-});
-pub const uinput = @cImport({
-    @cInclude("linux/uinput.h");
+    @cInclude("string.h"); // strerror(3)
+    // @cInclude("linux/uinput.h"); // EV_KEY, EV_REL, etc.
 });
