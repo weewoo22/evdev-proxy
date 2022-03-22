@@ -7,6 +7,10 @@ pub fn build(builder: *std.build.Builder) void {
     const host = builder.addExecutable("evdev-proxy", "src/host/main.zig");
     host.setTarget(target);
     host.setBuildMode(mode);
+    host.linkLibC();
+    host.linkSystemLibrary("libudev");
+    host.linkSystemLibrary("libinput");
+    host.linkSystemLibrary("libevdev");
     host.install();
 
     const guest = builder.addExecutable("evdev-proxy", "src/guest/main.zig");

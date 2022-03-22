@@ -19,6 +19,9 @@
           nativeBuildInputs = with pkgs; [
             pkg-config
             zig-overlay.packages.${system}.master.latest
+            libinput
+            udev
+            libevdev
           ];
 
           src = ./.;
