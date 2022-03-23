@@ -86,11 +86,6 @@ pub fn main() !u8 {
     // Change device name returned by libevdev_get_name()
     c.libevdev_set_name(proxy_device, "EvDev Proxy");
 
-    // Forcibly enable key event types
-    if (c.libevdev_enable_event_type(proxy_device, c.EV_KEY) != 0) {
-        log.err("Failed to enable key event types", .{});
-    }
-
     var ui_dev: ?*c.libevdev_uinput = undefined;
     const err = c.libevdev_uinput_create_from_device(
         proxy_device,
