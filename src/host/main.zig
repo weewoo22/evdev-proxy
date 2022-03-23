@@ -83,19 +83,12 @@ pub fn main() !u8 {
     };
     defer c.libevdev_free(proxy_device);
 
+    // Change device name returned by libevdev_get_name()
     c.libevdev_set_name(proxy_device, "EvDev Proxy");
 
-    // Enable button & key event types
+    // Forcibly enable key event types
     if (c.libevdev_enable_event_type(proxy_device, c.EV_KEY) != 0) {
         log.err("Failed to enable key event types", .{});
-    }
-
-    _ = c.libevdev_enable_event_type(proxy_device, c.EV_REL);
-
-    var key: c_uint = c.KEY_RESERVED;
-    // Enable regular keyboard key codes
-    while (key < c.KEY_CNT) : (key += 1) {
-        _ = c.libevdev_enable_event_code(proxy_device, c.EV_KEY, key, null);
     }
 
     var ui_dev: ?*c.libevdev_uinput = undefined;
